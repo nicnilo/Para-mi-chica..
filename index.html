@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Mi Niña Hermosa ♥</title>
+    <!-- Fuentes elegantes y modernas -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* === PALETA DE COLORES PERSONALIZADA (CSS) === */
+        :root {
+            --color-fondo: #0b0c10;       /* Negro profundo */
+            --color-tarjeta: #1f2833;     /* Gris oscuro para contraste */
+            --color-principal: #ff758f;   /* Rosado romántico */
+            --color-detalle: #4e9f3d;     /* Verde vibrante */
+            --color-dorado: #d4af37;      /* Dorado elegante */
+            --color-texto: #c5a880;       /* Texto suave/dorado claro */
+            --color-blanco: #ffffff;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--color-fondo);
+            color: var(--color-blanco);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Dancing Script', cursive;
+            text-align: center;
+        }
+
+        h1 { font-size: 3.5rem; color: var(--color-principal); margin-top: 20px; }
+        h2 { font-size: 2.5rem; color: var(--color-dorado); }
+        h3 { font-size: 2rem; color: var(--color-principal); margin: 5px 0; }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            background: var(--color-tarjeta);
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 20px;
+            border: 2px solid var(--color-detalle);
+            box-shadow: 0 10px 25px rgba(78, 159, 61, 0.2);
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        /* === PORTADA Y FOTO === */
+        .foto-perfil {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            border: 4px solid var(--color-dorado);
+            object-fit: cover;
+            margin: 20px auto;
+            display: block;
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        /* === CONTADOR DE TIEMPO === */
+        .grid-contador {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .caja-tiempo {
+            background: var(--color-fondo);
+            padding: 15px;
+            border-radius: 12px;
+            border: 2px dashed var(--color-principal);
+            color: var(--color-texto);
+        }
+
+        .numero-tiempo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--color-dorado);
+            display: block;
+        }
+
+        /* === BOTONES === */
+        .btn {
+            background-color: var(--color-detalle);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 5px 10px rgba(78, 159, 61, 0.3);
+            margin: 10px;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            background-color: #3e8e2f;
+        }
+
+        .btn-carta {
+            background-color: transparent;
+            border: 2px solid var(--color-dorado);
+            color: var(--color-dorado);
+            padding: 10px 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s;
+            margin: 5px;
+        }
+
+        .btn-carta:hover, .btn-carta.activo {
+            background-color: var(--color-dorado);
+            color: var(--color-fondo);
+        }
+
+        /* El botón escurridizo */
+        #btn-no {
+            position: absolute;
+            background-color: #555;
+            box-shadow: none;
+        }
+
+        .contenedor-botones {
+            position: relative;
+            height: 100px;
+            margin-top: 20px;
+        }
+
+        /* === SECCIÓN CARTAS === */
+        .contenedor-cartas {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .contenido-carta {
+            display: none;
+            background-color: var(--color-fondo);
+            border-top: 4px solid var(--color-principal);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: left;
+            line-height: 1.6;
+            font-size: 1.05rem;
+            animation: fadeIn 0.8s ease-in-out forwards;
+            color: #e0e0e0;
+        }
+
+        .autor {
+            text-align: right;
+            font-style: italic;
+            color: var(--color-dorado);
+            margin-top: 15px;
+            display: block;
+            font-weight: bold;
+        }
+
+        /* Animación de corazones flotantes */
+        .corazon-flotante {
+            position: fixed;
+            color: var(--color-principal);
+            font-size: 1.5rem;
+            pointer-events: none;
+            z-index: 999;
+            animation: flotar 4s linear infinite;
+        }
+
+        @keyframes flotar {
+            0% { transform: translateY(100vh) scale(0); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- === 1. PORTADA PRINCIPAL === -->
+    <div class="container">
+        <h1>Para mi niña hermosa</h1>
+        <!-- Imagen vinculada correctamente -->
+        <img src="https://i.pinimg.com/736x/ee/dd/6a/eedd6af7260933ae8239c4c31a1550e4.jpg" alt="Nosotros" class="foto-perfil">
+        <p style="font-size: 1.2rem; line-height: 1.6; color: #dfdfdf;">
+            Diseñé este rincón digital combinando líneas de código con todo lo que siento por ti. Es un pequeño espacio interactivo dedicado a nosotros, para recordarte lo hermosa que eres y lo mucho que valoras cada detalle. Espero que te encante tanto como a mí me encantó programarlo.
+        </p>
+    </div>
+
+    <!-- === 2. CONTADOR DE TIEMPO === -->
+    <div class="container">
+        <h2>¿Cuánto tiempo llevamos juntos?</h2>
+        <p style="color: var(--color-principal); font-weight: bold;">Cada segundo a tu lado ha valido completamente la pena...</p>
+        <div class="grid-contador">
+            <div class="caja-tiempo"><span class="numero-tiempo" id="dias">00</span>Días</div>
+            <div class="caja-tiempo"><span class="numero-tiempo" id="horas">00</span>Horas</div>
+            <div class="caja-tiempo"><span class="numero-tiempo" id="minutos">00</span>Minutos</div>
+            <div class="caja-tiempo"><span class="numero-tiempo" id="segundos">00</span>Segundos</div>
+        </div>
+    </div>
+
+    <!-- === 3. SECCIÓN DE CARTAS INTERACTIVAS === -->
+    <div class="container">
+        <h2>Un rincón de letras para ti</h2>
+        <p>Haz clic en los botones para abrir los mensajes secretos que guardé aquí:</p>
+        
+        <div class="contenedor-cartas">
+            <button class="btn-carta" onclick="abrirCarta('benedetti1', this)">Amor de mi vida (Benedetti)</button>
+            <button class="btn-carta" onclick="abrirCarta('benedetti2', this)">Viceversa (Benedetti)</button>
+            <button class="btn-carta" onclick="abrirCarta('disculpa', this)">Para ti (Mi Carta) 💌</button>
+        </div>
+
+        <!-- Carta Benedetti 1 -->
+        <div id="benedetti1" class="contenido-carta">
+            <h3>"Táctica y Estrategia"</h3>
+            <p>
+                Mi táctica es mirarte<br>
+                aprender como sos<br>
+                quererte como sos.<br><br>
+                Mi táctica es hablarte<br>
+                y escucharte<br>
+                construir con palabras<br>
+                un puente indestructible.<br><br>
+                Y mi estrategia es en cambio<br>
+                más profunda y más simple:<br>
+                mi estrategia es que un día cualquiera<br>
+                no sé cómo ni sé con qué pretexto<br>
+                por fin me necesites.
+            </p>
+            <span class="autor">— Mario Benedetti</span>
+        </div>
+
+        <!-- Carta Benedetti 2 -->
+        <div id="benedetti2" class="contenido-carta">
+            <h3>"Viceversa"</h3>
+            <p>
+                Tengo miedo de verte<br>
+                necesidad de verte<br>
+                esperanza de verte<br>
+                desazones de verte.<br><br>
+                Tengo ganas de hallarte<br>
+                preocupación de hallarte<br>
+                certidumbre de hallarte<br>
+                pobres dudas de hallarte.<br><br>
+                Tengo urgencia de oírte<br>
+                alegría de oírte<br>
+                buena suerte de oírte<br>
+                y temores de oírte.<br><br>
+                O sea<br>
+                resumiendo<br>
+                estoy jodido<br>
+                y radiante<br>
+                quizá más lo primero<br>
+                que lo segundo<br>
+                y también<br>
+                viceversa.
+            </p>
+            <span class="autor">— Mario Benedetti</span>
+        </div>
+
+        <!-- Tu Carta de Disculpa -->
+        <div id="disculpa" class="contenido-carta">
+            <h3>De mi corazón al tuyo</h3>
+            <p>
+                Lamento mucho lo hoy.. Sabes perfectamente que eres la persona que más me importa y lo último que desearía en el mundo es hacerte sentir mal o causar un momento incómodo entre nosotros. 
+            </p>
+            <p>
+                A veces las cosas no salen como las planeo o no encuentro las palabras correctas en el instante preciso, pero mi intención siempre, siempre va a ser cuidarte, hacerte sonreír y darte lo mejor de mí. Espero que este detalle programado te recuerde lo especial que eres para mí y me disculpes por el tropiezo. Te amo demasiado.
+            </p>
+            <span class="autor">— Tu Novio</span>
+        </div>
+    </div>
+
+    <!-- === 4. EL BOTÓN TRAVIESO === -->
+    <div class="container" style="margin-bottom: 50px;">
+        <h2>¿Me dejas seguir demostrándote cuánto te amo?</h2>
+        
+        <div class="contenedor-botones">
+            <button class="btn" id="btn-si" onclick="responderSi()">¡SÍ, OBVIO!</button>
+            <button class="btn" id="btn-no" onmouseover="moverBotonNo()" onclick="moverBotonNo()">No</button>
+        </div>
+    </div>
+
+    <!-- === LÓGICA DE PROGRAMACIÓN (JAVASCRIPT) === -->
+    <script>
+        // CONFIGURACIÓN DE TU FECHA REAL DE ANIVERSARIO: 17 de Febrero de 2024
+        // (Nota: En JS los meses empiezan desde 0. Enero es 0, Febrero es 1)
+        const fechaInicio = new Date(2024, 1, 17, 0, 0, 0); 
+
+        // 1. CÓDIGO DEL CONTADOR REAL
+        function actualizarContador() {
+            const ahora = new Date();
+            const diferencia = ahora - fechaInicio;
+
+            const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+            document.getElementById('dias').innerText = dias.toString().padStart(2, '0');
+            document.getElementById('horas').innerText = horas.toString().padStart(2, '0');
+            document.getElementById('minutos').innerText = minutes.toString().padStart(2, '0');
+            document.getElementById('segundos').innerText = segundos.toString().padStart(2, '0');
+        }
+        setInterval(actualizarContador, 1000);
+        actualizarContador();
+
+        // 2. FUNCIÓN PARA INTERACTUAR CON LAS CARTAS
+        function abrirCarta(idCarta, botonActivo) {
+            // Ocultar todas las cartas primero
+            const cartas = document.querySelectorAll('.contenido-carta');
+            cartas.forEach(carta => carta.style.display = 'none');
+
+            // Quitar clase activa a todos los botones
+            const botones = document.querySelectorAll('.btn-carta');
+            botones.forEach(btn => btn.classList.remove('activo'));
+
+            // Mostrar la carta seleccionada y activar botón
+            document.getElementById(idCarta).style.display = 'block';
+            botonActivo.classList.add('activo');
+        }
+
+        // 3. CÓDIGO DEL BOTÓN ESQUIVO (NO)
+        function moverBotonNo() {
+            const btnNo = document.getElementById('btn-no');
+            const x = Math.random() * (window.innerWidth - btnNo.offsetWidth - 20);
+            const y = Math.random() * (180 - btnNo.offsetHeight); 
+
+            btnNo.style.left = `${x}px`;
+            btnNo.style.top = `${y}px`;
+        }
+
+        function responderSi() {
+            alert('¡Gracias por permitirme estar a tu lado! Prometo seguir cuidando de ti y de nuestra historia. Te amo. ♥');
+        }
+
+        // 4. CORAZONES DE FONDO FLOTANDO
+        function crearCorazon() {
+            const corazon = document.createElement('div');
+            corazon.classList.add('corazon-flotante');
+            corazon.innerText = '♥';
+            corazon.style.left = Math.random() * 100 + 'vw';
+            corazon.style.animationDuration = Math.random() * 2 + 3 + 's'; 
+            
+            document.body.appendChild(corazon);
+
+            setTimeout(() => {
+                corazon.remove();
+            }, 5000);
+        }
+        setInterval(crearCorazon, 450); 
+    </script>
+</body>
+</html>
